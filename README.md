@@ -75,3 +75,69 @@ Driver texting right
 
 Driver operating the radio  
 ![](images/img_10_OPERATING_RADIO.jpg)
+
+## Project Overview
+
+### Data Preprocessing
+
+Preprocessing of data is carried out before model is built and training process
+is executed.
+Following are the steps carried out during preprocessing.
+* Initially the images are divided into training and validation sets.
+* The images are resized to a square images i.e. 224 x 224 pixels.
+* All three channels were used during training process as these are color
+images.
+* The images are normalised by dividing every pixel in every image by 255.
+* To ensure the mean is zero a value of 0.5 is subtracted.
+
+### Implementation
+
+A standard CNN architecture was initially created and trained. We have created 4 convolutional layers with 4
+max pooling layers in between. Filters were increased from 64 to 512 in each
+of the convolutional layers. Also dropout was used along with flattening layer
+before using the fully connected layer. Altogether the CNN has 2 fully
+connected layers. Number of nodes in the last fully connected layer were
+setup as 10 along with softmax activation function. Relu activation function
+was used for all other layers.Xavier initialization was used in each of the
+layers.
+
+### Refinement
+
+To get the initial result simple CNN architecture was built and evaluated. This
+resulted in a decent loss. The public score for the initial simple CNN
+architecture(initial unoptimized model) was 2.67118.
+After this to further improve the loss, transfer learning was applied to VGG16
+along with investigating 2 types of architectures for fully connected layer.
+Model Architecture1 showed good results and was improved further by using
+the below techniques
+* Drop out layer was added to account for overfitting.
+* Xavier initialization was used instead of random initialization of weights
+* Zero mean was ensured by subtracting 0.5 during Pre-processing.
+* Training was carried out with 400 epochs and with a batch size of 16
+* To further improve the loss metric ,VGG16 along with Model Architecture1
+was selected and fine-tuning was applied. SGD optimiser was used with very
+slow learning rate of 1e-4. A momentum of 0.9 was applied with SGD.
+
+
+### Results
+
+The comparison of the Public Scores for all the model architectures
+considered for this data set is shown in Fig
+
+![](images/comparison.png)
+
+### Installation 
+
+1. Install `Python 3.8.5` on your Local Machine 
+2. Execute `git clone https://github.com/Abhinav1004/Distracted-Driver-Detection.git` to clone the repository
+3. Create Python Virtual Environment in root folder by opening terminal and executing
+    ```
+      * pip install virtualenv
+      * virtualenv distracted_env
+      * source distracted_env/bin/activate
+     ```
+4. Install required Python Libraries by `pip install -r requirements.txt`
+
+
+
+
